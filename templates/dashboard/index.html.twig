@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="ui container">
+        <div class="ui raised very padded  container segment">
+            <h2 class="ui header">
+                Git Repository Comparator
+                <div class="sub header">Compare public github repositories</div>
+            </h2>
+
+            <div class="ui container">
+                <div class="ui two column stackable  grid">
+                    <div class="ui vertical divider">vs</div>
+                    <div class="row">
+                        <div class="column">
+                            <div class="ui icon header center aligned">
+                                <i class="search icon"></i>
+                                Github Repository
+                            </div>
+                            <div class="field">
+                                <div id="first_repo_search" class="ui search">
+                                    <div class="ui icon input fluid">
+                                        <input class="prompt" type="text" placeholder="ex. symfony/symfony">
+                                        <i class="circular search link icon"></i>
+                                    </div>
+                                    <div class="results"></div>
+                                </div>
+                            </div>
+                            <div class="ui items" id="first_repo"></div>
+                        </div>
+                        <div class="column">
+                            <div class="ui icon header center aligned">
+                                <i class="search icon"></i>
+                                Github Repository
+                            </div>
+                            <div class="field">
+                                <div id="second_repo_search" class="ui search">
+                                    <div class="ui icon input fluid">
+                                        <input class="prompt" type="text" placeholder="ex. laravel/laravel">
+                                        <i class="circular search link icon"></i>
+                                    </div>
+                                    <div class="results"></div>
+                                </div>
+                            </div>
+                            <div class="ui items" id="second_repo"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="ui container center aligned">
+            <button class="ui button" id="compare_btn">Compare</button>
+        </div>
+
+    </div>
+
+    <script>
+      $("#first_repo_search i").on('click', function () {
+        getRepoStats(
+          $("#first_repo_search input"),
+          $("#first_repo")
+        );
+      });
+
+      $("#second_repo_search i").on('click', function () {
+        getRepoStats(
+          $("#second_repo_search input"),
+          $("#second_repo")
+        );
+      });
+
+      $("#compare_btn").on('click', compareRepos);
+
+      function compareRepos() {
+        // todo
+      }
+      
+      function getRepoStats(searchInput, container) {
+        const url = '{{ path('get_repo_stats_ajax') }}';
+        $.ajax({
+          url: url,
+          type: "GET",
+          data: {
+            repoName: searchInput.val()
+          },
+          success: function(response) {
+            if(response.status === 'ok') {
+              container.append(response.content);
+            }
+          }
+        });
+      }
+    </script>
+{% endblock %}

@@ -15,3 +15,12 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    http_client:
+        scoped_clients:
+            github.client:
+                scope: 'https://api\.github\.com'
+                headers:
+                    Accept: 'application/vnd.github.v3+json'
+                    # Uncomment to boost requests limit
+                    # Authorization: 'token %env(GITHUB_API_TOKEN)%'

@@ -1,0 +1,36 @@
+<div class="ui relaxed item">
+    <div class="ui tiny image">
+        <img src="{{ item.imageUrl }}">
+    </div>
+    <div class="content aligned left">
+        <a class="header">{{ item.fullName }}</a>
+        <div class="meta">
+            <span class="cinema">Last release: {{ item.lastReleaseDate }}</span><br>
+            <span class="cinema">{{ item.description }}</span>
+        </div>
+        <div class="description">
+            <p></p>
+        </div>
+        <div class="extra">
+            <div class="ui label"><i class="star icon"></i> {{ item.starsCount }} stars</div>
+            <div class="ui label">{{ item.watchersCount }} watchers</div>
+            <div class="ui label">{{ item.forksCount }} forks</div>
+        </div>
+    </div>
+</div>
+<div class="ui statistic">
+    <div class="value" id="openPullRequests">
+        {{ item.openPullRequestsCount }}
+    </div>
+    <div class="label">
+        Open pull requests
+    </div>
+</div>
+<div class="ui statistic">
+    <div class="value" id="closedPullRequests">
+        {{ item.closedPullRequestsCount }}
+    </div>
+    <div class="label">
+        Closed pull requests
+    </div>
+</div>
