@@ -1,26 +1,28 @@
 <div class="ui relaxed item">
     <div class="ui tiny image">
-        <img src="{{ item.imageUrl }}">
+        {% if repository.owner.avatarUrl is not null %}
+            <img src="{{ repository.owner.avatarUrl }}">
+        {% endif %}
     </div>
     <div class="content aligned left">
-        <a class="header">{{ item.fullName }}</a>
+        <a class="header">{{ repository.nameWithOwner }}</a>
         <div class="meta">
-            <span class="cinema">Last release: {{ item.lastReleaseDate }}</span><br>
-            <span class="cinema">{{ item.description }}</span>
+            <span class="cinema">{{ repository.description }}</span>
+            <span class="cinema">Last release: {{ repository.latestRelease.publishedAt ? repository.latestRelease.publishedAt|date('Y-m-d') }}</span><br>
         </div>
         <div class="description">
             <p></p>
         </div>
         <div class="extra">
-            <div class="ui label"><i class="star icon"></i> {{ item.starsCount }} stars</div>
-            <div class="ui label">{{ item.watchersCount }} watchers</div>
-            <div class="ui label">{{ item.forksCount }} forks</div>
+            <div class="ui label"><i class="star icon"></i> {{ repository.stargazers.totalCount }} stars</div>
+            <div class="ui label">{{ repository.watchers.totalCount }} watchers</div>
+            <div class="ui label">{{ repository.forks.totalCount }} forks</div>
         </div>
     </div>
 </div>
 <div class="ui statistic">
     <div class="value" id="openPullRequests">
-        {{ item.openPullRequestsCount }}
+        {{ repository.openpullRequests.totalCount }}
     </div>
     <div class="label">
         Open pull requests
@@ -28,7 +30,7 @@
 </div>
 <div class="ui statistic">
     <div class="value" id="closedPullRequests">
-        {{ item.closedPullRequestsCount }}
+        {{ repository.closedpullRequests.totalCount }}
     </div>
     <div class="label">
         Closed pull requests

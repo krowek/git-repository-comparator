@@ -29,6 +29,7 @@ class DashboardController extends AbstractController
             return $this->json(['status' => 'error', 'msg' => 'Missing repository name']);
         }
 
+        // TODO: Move api url to .env
         $repoStats = $client->request('GET', 'http://127.0.0.1:8000/api/v1/git-repository/' . rawurlencode($repoName));
         $repoStats = $repoStats->toArray();
 
@@ -36,7 +37,7 @@ class DashboardController extends AbstractController
             return $this->json(['status' => 'error', 'msg' => 'Invalid request']);
         }
 
-        $html = $this->render('dashboard/_repo_stats_item.html.twig', ['item' => $repoStats['data']])->getContent();
+        $html = $this->render('dashboard/_repo_stats_item.html.twig', $repoStats['data'])->getContent();
 
         return $this->json([
             'status' => 'ok',
